@@ -6,6 +6,8 @@
 
 - [Performance Anti-patterns](https://medium.com/@esamatti/react-js-pure-render-performance-anti-pattern-fb88c101332f)
 
+- [Performance Anti-Pattern: Creating Functions in render()](https://medium.com/netscape/react-performance-anti-pattern-creating-functions-in-render-ddeb5ebd2933)
+
 - [Performance Anti-Pattern: No function creations in render](https://medium.com/@esamatti/react-js-pure-render-performance-anti-pattern-fb88c101332f)
 
 - [shouldComponentUpdate + Not Mutating Data](https://facebook.github.io/react/docs/optimizing-performance.html)
