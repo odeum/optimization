@@ -2,6 +2,18 @@
   "name": "optimization",
   "version": "0.1.0",
   "private": true,
+  "description": "Ressources for React optimizations and examples to prove patterns",
+  "author": "Christian Broberg",
+  "license": "MIT",
+  "keywords": [
+  	"react",
+	"odeum",
+	"odeum-code",
+	"optimization",
+	"patterns for optimization",
+	"patterns",
+	"links"
+],
   "dependencies": {
     "polished": "^1.7.0",
     "react": "^15.6.1",

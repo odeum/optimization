@@ -1,7 +1,9 @@
 {
   "name": "rerender-test",
-  "description": null,
+  "private": true,
+  "description": "How to render pure and unpure",
   "version": "0.0.13",
+  "license": "MIT",
   "dependencies": {
     "styled-components": "2.1.2",
     "react-dom": "15.5.3",
