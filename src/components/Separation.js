@@ -2,25 +2,25 @@ import React, { Component } from 'react'
 
 // Stateful Container Component
 // (Controller, Smart, Business Logic, Data (fetching)) - uses render, state, lifecycle events
-class SmallCircleInCircle extends Component {
+class SeparationContainer extends Component {
 	constructor(props) {
 		super(props)
-		this.state = { smarts: 'smarts' }	
+		this.state = { name: 'Christian Broberg', title: 'CEO' }	
 	}
 	
 	render() {
 		const state = this.state
 		return (
-			<SmallCircle {...state} />
+			<Separated {...state} />
 		)
 	}
 }
 
 // Stateless Presentation Component
 //  (View, Dumb, Display) - uses render, props, context
-const SmallCircle = props => 
-	<div>{props.smarts}</div>
+const Separated = props => 
+	<div>{props.name}{', '}{props.title}</div>
 
 	
-export default SmallCircleInCircle
+export default SeparationContainer
 

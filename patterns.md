@@ -1,4 +1,5 @@
 # React Optimization - Do's and Dont's - Patterns & Anti-Patterns => Best Practices
+[React Patterns](http://reactpatterns.com/)
 
 ## Basis concepts for optimization:
 
