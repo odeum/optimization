@@ -1,3 +1,7 @@
+# Links to ressources for React Optimization, Patterns and Anti-Patterns
+
+## All ressources & links
+
 - [React is slow - React is fast](https://marmelab.com/blog/2017/02/06/react-is-slow-react-is-fast.html)
 
 - [A Guide to Optimizing React Performance](https://www.toptal.com/react/optimizing-react-performance)
@@ -40,6 +44,10 @@
 
 - [React at 60fps](https://hackernoon.com/react-at-60fps-4e36b8189a4c)
 
-Memoize (Memoization, Reselect, ...)
+## Memoize (Memoization, Reselect, ...)
+
+## Containerization
+https://medium.com/@learnreact/container-components-c0e67432e005
+
 
 
