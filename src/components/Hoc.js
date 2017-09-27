@@ -1,9 +1,9 @@
-// Higher Order Component - HOC
+// Higher Order Component - HOC - Enhancer Component 
 
 import React, { Component } from 'react'
 
 
-const Connect = ComposedComponent =>
+const Connect = WrappedComponent =>
 	class extends Component {
 		constructor() {
 			super()
@@ -12,12 +12,12 @@ const Connect = ComposedComponent =>
 
 		componentDidMount() {
 			// this would fetch or connect to a store
-			this.setState({ name: 'Michael' })
+			this.setState({ name: 'Christian' })
 		}
 
 		render() {
 			return (
-				<ComposedComponent
+				<WrappedComponent
 					{...this.props}
 					name={this.state.name}
 				/>
