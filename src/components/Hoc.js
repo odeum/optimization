@@ -27,3 +27,8 @@ const Connect = WrappedComponent =>
 
 export default Connect
 
+export const Greeting = ({ name }) => {
+	if (!name) { return <div>Connecting...</div> }
+
+	return <div>Hi {name}!</div>
+}
