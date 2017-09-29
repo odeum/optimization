@@ -72,4 +72,7 @@ shouldComponentUpdate() {
 
 ```
 
+## Check your JSON
+- [jsonlint](https://jsonlint.com/)
+
 

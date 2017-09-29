@@ -12,10 +12,17 @@ class UsersListContainer extends React.Component {
 			headers: {
 				'Content-Type': 'application/json',
 				'Accept': 'application/json'
-			} 
+			}
 		})
-			.then(res => res.json())
-			.then(users => this.setState({ users }))
+			.then((response) => {
+				if (response.status !== 200) {
+					console.log(`Error fetching users: ${response.status}`)
+				} else {
+					response.json().then(users => this.setState({ users }))
+					console.log(response.status)
+				}
+			})
+			.catch((error) => console.log(`Error fetching recipes: ${error}`))
 	}
 
 	render() {
@@ -25,3 +32,27 @@ class UsersListContainer extends React.Component {
 
 export default UsersListContainer
 
+// function fetchData(url, callback) {
+// 	fetch(url)
+// 		.then((response) => {
+// 			if (response.status !== 200) {
+// 				console.log(`Error fetching recipes: ${response.status}`);
+// 			} else {
+// 				response.json().then(callback);
+// 			}
+// 		})
+// 		.catch((err) => console.log(`Error fetching recipes: ${err}`))
+// }
+
+/*
+
+		fetch('/users.json', {
+			headers: {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			}
+		})
+			.then(response => response.json())
+			.then(users => this.setState({ users }))
+
+*/

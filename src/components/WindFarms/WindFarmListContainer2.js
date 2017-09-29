@@ -13,9 +13,8 @@ class WindFarmListContainer extends React.Component {
 	}
 
 	render() {
-		return (
-			<WindFarmList windfarms={this.state.windfarms} />
-		) 
+		return null
+		// <WindFarmList windfarms={this.state.windfarms} />
 	}
 }
 
@@ -40,7 +39,7 @@ fetch('https://gc2.dbbjackup.dk/api/v1/sql/dbb?q=select%20*%20from%20public.owf'
 
 
 const api = create({
-	baseURL: 'https://gc2.dbbjackup.dk/api/v1/sql/dbb?q=select%20*%20from%20public.owf',
+	baseURL: 'https://gc2.dbbjackup.dk/',
 	timeout: 10000,
 	headers: {
 		'Content-Type': 'application/json',
@@ -51,8 +50,9 @@ const api = create({
 
 
 async function getData() {
-	var data = await api.get('')
+	var data = await api.get('/api/v1/sql/dbb?q=select%20*%20from%20public.owf')
 		.then((response) => windfarms => this.setState({ windfarms }))
+	console.log(data)
 	/*   console.log('-----Config-----')
         console.log(data) */
 	return data
