@@ -5,6 +5,7 @@ import UsersListContainer from 'components/LocalJson/UsersListContainer'
 import Connect, { Greeting } from 'components/Hoc'
 import WindFarmListContainer from 'components/WindFarms/WindFarmListContainer'
 import PhotosListContainer from 'components/Photos/PhotosListContainer'
+import CustomTextInput from 'components/Refs'
 
 
 const ConnectedComponent = Connect(Greeting)
@@ -15,6 +16,7 @@ class App extends Component {
 		return (
 			<div>
 				<SeparationContainer />
+				<CustomTextInput />
 				<CommentListContainer />
 				<UsersListContainer />
 				<ConnectedComponent />
