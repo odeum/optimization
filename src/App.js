@@ -3,7 +3,7 @@ import CommentListContainer from 'components/CommentList/CommentListContainer'
 import SeparationContainer from 'components/Separation'
 import UsersListContainer from 'components/LocalJson/UsersListContainer'
 import Connect, { Greeting } from 'components/Hoc'
-// import WindFarmListContainer from 'components/WindFarms/WindFarmListContainer2'
+import WindFarmListContainer from 'components/WindFarms/WindFarmListContainer'
 import PhotosListContainer from 'components/Photos/PhotosListContainer'
 
 
@@ -18,7 +18,7 @@ class App extends Component {
 				<CommentListContainer />
 				<UsersListContainer />
 				<ConnectedComponent />
-				{/* <WindFarmListContainer /> */}
+				<WindFarmListContainer />
 				<PhotosListContainer />
 			</div>
 		)

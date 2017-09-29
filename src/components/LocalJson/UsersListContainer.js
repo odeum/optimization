@@ -19,10 +19,10 @@ class UsersListContainer extends React.Component {
 					console.log(`Error fetching users: ${response.status}`)
 				} else {
 					response.json().then(users => this.setState({ users }))
-					console.log(response.status)
+					// console.log(response.status)
 				}
 			})
-			.catch((error) => console.log(`Error fetching recipes: ${error}`))
+			.catch((error) => console.log(`Error fetching users: ${error}`))
 	}
 
 	render() {
