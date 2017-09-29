@@ -1,21 +1,27 @@
 import React from "react"
 import PhotosList from "./PhotosList"
 
+
 class PhotosListContainer extends React.Component {
 	constructor() {
 		super()
 		this.state = { photos: [] }
 	}
 
-	componentDidMount() {
-		fetch('https://jsonplaceholder.typicode.com/photos', {
+	fetchAsync = async () => {
+		let data = await (await fetch('https://jsonplaceholder.typicode.com/photos', {
 			headers: {
 				'Content-Type': 'application/json',
 				'Accept': 'application/json'
-			} 
-		})
-			.then(res => res.json())
+			}
+		})).json()
+		return data	
+	}
+
+	componentDidMount() {
+		this.fetchAsync()
 			.then(photos => this.setState({ photos }))
+			.catch(error => console.log(error.message))
 	}
 
 	render() {
@@ -24,4 +30,3 @@ class PhotosListContainer extends React.Component {
 }
 
 export default PhotosListContainer
-
