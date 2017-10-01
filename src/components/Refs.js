@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Input } from 'components/Styles'
+
 
 export default class CustomTextInput extends Component {
 
@@ -9,9 +11,9 @@ export default class CustomTextInput extends Component {
 	render() {
 		return (
 			<div>
-				<input
+				<Input
 					type="text"
-					ref={input => this.textInput = input} 
+					innerRef={input => this.textInput = input} 
 				/>
 				<input
 					type="button"
