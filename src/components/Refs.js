@@ -8,6 +8,10 @@ export default class CustomTextInput extends Component {
 		this.textInput.focus()
 	}
 
+	componentDidMount() {
+		this.focusTextInput()
+	}
+
 	render() {
 		return (
 			<div>
