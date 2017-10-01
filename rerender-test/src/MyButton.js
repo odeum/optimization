@@ -1,7 +1,9 @@
 import React, { Component } from "react"
 
-export default class MyButton extends Component {
-	renders = 0;
+let renders
+
+class MyButton extends Component {
+	renders = 0
 
 	render() {
 		return (
@@ -11,3 +13,5 @@ export default class MyButton extends Component {
 		)
 	}
 }
+
+export default MyButton

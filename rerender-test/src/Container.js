@@ -1,15 +1,18 @@
 import React, { Component } from "react"
 
+let renders
+let increment
+
 class Container extends Component {
 	constructor(props) {
 		super(props)
-		
+
 		this.state = { count: 0 }
 	}
 
 	renders = 0
 
-	increment = () => { 
+	increment = () => {
 		this.setState(state => ({ count: state.count + 1 }))
 	}
 
