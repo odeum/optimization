@@ -7,22 +7,47 @@ import WindFarmListContainer from 'components/WindFarms/WindFarmListContainer'
 import PhotosListContainer from 'components/Photos/PhotosListContainer'
 import CustomTextInput from 'components/Refs'
 import TextInput from 'components/TextInput'
+import Timer from 'components/Timer'
 
 const ConnectedComponent = Connect(Greeting)
 
 
 class App extends Component {
+
+	state = {
+		isLoading: false
+	}
+
+	loadPhotos = () => {
+		console.log('Loading photos ... ')
+		this.setState({ isLoading: true })
+		
+		return <PhotosListContainer />
+	} 
+
+	loadIt() {
+		return <PhotosListContainer />
+	}
+
 	render() {
 		return (
 			<div>
 				<SeparationContainer />
 				<CustomTextInput />
 				<TextInput />
+				<Timer />
 				<CommentListContainer />
 				<UsersListContainer />
 				<ConnectedComponent />
 				<WindFarmListContainer />
-				<PhotosListContainer />
+				
+				<input
+					type="button"
+					value="Load photos ..."
+					onClick={this.loadPhotos}
+				/>
+				{/* {this.loadIt()} */}
+				{this.state.isLoading ? <PhotosListContainer /> : null}
 			</div>
 		)
 	}

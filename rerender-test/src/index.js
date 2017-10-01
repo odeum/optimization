@@ -1,17 +1,17 @@
-import React from "react";
-import { render } from "react-dom";
-import Container from "./Container";
-import MyButton from "./MyButton";
-import MyPureButton from "./MyPureButton";
-import styled from "styled-components";
+import React from "react"
+import { render } from "react-dom"
+import Container from "./Container"
+import MyButton from "./MyButton"
+import MyPureButton from "./MyPureButton"
+import styled from "styled-components"
 
 const StyledApp = styled.div`
-  font-family: sans-serif;
-  text-align: center;
+  font-family: sans-serif
+  text-align: center
   div {
-    margin: 15px 5px;
+    margin: 15px 5px
   }
-`;
+`
 
 const App = () =>
   <StyledApp>
@@ -25,6 +25,6 @@ const App = () =>
       Notice how <strong>only the fat arrow button</strong> renders as many
       times as the container.
     </div>
-  </StyledApp>;
+  </StyledApp>
 
-render(<App />, document.getElementById("root"));
+render(<App />, document.getElementById("root"))
