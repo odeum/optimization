@@ -1,8 +1,9 @@
 import React, { Component } from "react"
 
-export default class Container extends Component {
-	constructor() {
-		super()
+class Container extends Component {
+	constructor(props) {
+		super(props)
+		
 		this.state = { count: 0 }
 	}
 
@@ -30,3 +31,5 @@ export default class Container extends Component {
 		)
 	}
 }
+
+export default Container
