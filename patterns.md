@@ -36,7 +36,10 @@ API: Render, Props, State, Context, Lifecycle Events
 
 5. Render Callback (Render Props)
 
-
+## Unidirectional Data Flow
+- Data flows **down** from parent to child components
+- A parent **never** asks its child for its state
+- A child can **only** update state by calling a callback that its parent gave it
 
 ## Separation of concerns
 The idea is pretty simple: components can't be concerned with both presentation and data-fetching. 

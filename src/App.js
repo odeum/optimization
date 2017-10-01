@@ -6,7 +6,7 @@ import Connect, { Greeting } from 'components/Hoc'
 import WindFarmListContainer from 'components/WindFarms/WindFarmListContainer'
 import PhotosListContainer from 'components/Photos/PhotosListContainer'
 import CustomTextInput from 'components/Refs'
-
+import TextInput from 'components/TextInput'
 
 const ConnectedComponent = Connect(Greeting)
 
@@ -17,6 +17,7 @@ class App extends Component {
 			<div>
 				<SeparationContainer />
 				<CustomTextInput />
+				<TextInput />
 				<CommentListContainer />
 				<UsersListContainer />
 				<ConnectedComponent />
