@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
 
+/* 
+Separation of concerns
+The idea is pretty simple: components can't be concerned with both presentation and data-fetching.
+*/
+
 // Stateful Container Component
 // (Controller, Smart, Business Logic, Data (fetching)) - uses render, state, lifecycle events
 class SeparationContainer extends Component {

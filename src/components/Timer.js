@@ -8,14 +8,14 @@ class Timer extends Component {
 		this.state = { seconds: 0 }
 	}
 
-	tick() {
+	tick = () => {
 		this.setState((prevState) => ({
 			seconds: prevState.seconds + 1
 		}))
 	}
 
 	componentDidMount() {
-		this.interval = setInterval(() => this.tick(), 1000)
+		this.interval = setInterval(this.tick, 1000)
 	}
 
 	componentWillUnmount() {

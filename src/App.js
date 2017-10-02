@@ -19,19 +19,21 @@ class App extends Component {
 	}
 
 	loadPhotos = () => {
-		console.log('Loading photos ... ')
 		this.setState({ isLoading: true })
-		
-		return <PhotosListContainer />
+		return this.loadIt
 	} 
 
-	loadIt() {
-		return <PhotosListContainer />
-	}
+	loadIt = () => <PhotosListContainer />
 
 	render() {
 		return (
 			<div>
+				<input
+					type="button"
+					value="Load photos ..."
+					onClick={this.loadPhotos}
+				/>
+
 				<SeparationContainer />
 				<CustomTextInput />
 				<TextInput />
@@ -41,11 +43,6 @@ class App extends Component {
 				<ConnectedComponent />
 				<WindFarmListContainer />
 				
-				<input
-					type="button"
-					value="Load photos ..."
-					onClick={this.loadPhotos}
-				/>
 				{/* {this.loadIt()} */}
 				{this.state.isLoading ? <PhotosListContainer /> : null}
 			</div>

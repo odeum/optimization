@@ -6,6 +6,8 @@
 
 - [A Guide to Optimizing React Performance](https://www.toptal.com/react/optimizing-react-performance)
 
+- [Benchmarking & Performance Engineering with React](https://benchling.engineering/performance-engineering-with-react-e03013e53285)
+
 - [No .bind() or Arrow functions in JSX props](https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-no-bind.md)
 
 - [Performance Anti-patterns](https://medium.com/@esamatti/react-js-pure-render-performance-anti-pattern-fb88c101332f)

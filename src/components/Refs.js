@@ -14,16 +14,17 @@ export default class CustomTextInput extends Component {
 
 	render() {
 		return (
-			<div>
+			<div>				
 				<Input
 					type="text"
 					innerRef={input => this.textInput = input} 
 				/>
-				<input
-					type="button"
-					value="Focus the text input"
+
+				<button 
 					onClick={this.focusTextInput}
-				/>
+					style={{ background: '#3FFFF' }}>Focus the text input
+				</button>
+
 			</div>
 		)
 	}

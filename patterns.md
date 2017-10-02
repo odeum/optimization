@@ -1,10 +1,16 @@
-# React Optimization - Do's and Dont's - Patterns & Anti-Patterns => Best Practices
+# React Optimization - Patterns & Anti-Patterns
+
+Quote: *"Premature optimization is the root of all evil"* 
+
+Translation: *"Don't worry about performance until you have a problem"*
+
+
 [React Patterns](http://reactpatterns.com/)
 
 ## Basis concepts for optimization:
 
 1. Purity
-- Use either React.PureComponent or shouldComponentUpdate where ever possible. 
+- Use React.PureComponent (which implements shouldComponentUpdate) or use shouldComponentUpdate in React.Component classes. 
 
 2. Data Comparability 
 - Use highly comparable data (Immutability)
@@ -15,11 +21,18 @@
 4. Children
 - Children are expensive
 - Children should excercise independance
+- Child Components should should be "pure"
+
+5. Keep <li> in their own component
+
+6. Implement ID's in your models and then use ID's for keys in iterations, only use indexes if an ID isn't a part of your data structure
+
 
 ## API for React Components
 API: Render, Props, State, Context, Lifecycle Events
 
 - Container (Stateful Component - Controller, Smart, Business Logic, Data (fetching)) - uses render, state, lifecycle events
+
 - Presentation (Stateless Component - View, Dumb, Display) - uses render, props, context
 
 
@@ -50,7 +63,7 @@ https://medium.com/@learnreact/container-components-c0e67432e005
 
 Use containers to manage data and try to avoid children as much as possible. 
 
-## Best Practices (Enforcing)
+## Best Practices (Enforcing Best Practices)
 
 ## Pure Components
 Pure Components are deterministic - render only depends on props & state
