@@ -21,6 +21,7 @@ export default class CustomTextInput extends Component {
 				/>
 
 				<button 
+					type="button"
 					onClick={this.focusTextInput}
 					style={{ background: '#3FFFF' }}>Focus the text input
 				</button>

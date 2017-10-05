@@ -8,6 +8,7 @@ import PhotosListContainer from 'components/Photos/PhotosListContainer'
 import CustomTextInput from 'components/Refs'
 import TextInput from 'components/TextInput'
 import Timer from 'components/Timer'
+import Persist from 'components/Persist'
 
 const ConnectedComponent = Connect(Greeting)
 
@@ -19,11 +20,13 @@ class App extends Component {
 	}
 
 	loadPhotos = () => {
-		this.setState({ isLoading: true })
-		return this.loadIt
+		this.setState({ isLoading: true })		
 	} 
 
-	loadIt = () => <PhotosListContainer />
+	onMount = () => {
+		let data = this.state
+		this.setState(data)
+	}
 
 	render() {
 		return (
@@ -43,8 +46,13 @@ class App extends Component {
 				<ConnectedComponent />
 				<WindFarmListContainer />
 				
-				{/* {this.loadIt()} */}
-				{this.state.isLoading ? <PhotosListContainer /> : null}
+				{this.state.isLoading && <PhotosListContainer />}
+				<Persist
+					name="saved-state"
+					data={this.state}
+					debounce={500}
+					onMount={this.onMount} // data => this.setState(data)
+				/>
 			</div>
 		)
 	}
