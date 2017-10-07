@@ -1,6 +1,33 @@
 import React, { Component, PureComponent } from 'react'
 import PropTypes from 'prop-types'
 
+class User extends PureComponent {
+
+	handleClick = () => {		
+		this.props.onClick(this.props.user.id)
+	}
+
+	render() {
+		const { user } = this.props
+		return (
+			<li>
+				<input
+					type="button"
+					value="Delete"
+					onClick={this.handleClick}
+				/>
+				{' '}{user.id}{': '}{user.name}
+			</li>
+		)
+	}
+}
+
+User.propTypes = {
+	user: PropTypes.object.isRequired,
+	onClick: PropTypes.func.isRequired
+}
+
+
 class DataFlow extends Component {
 
 	constructor(props) {
@@ -33,43 +60,27 @@ class DataFlow extends Component {
 	}
 
 	render() {
+		return <UserList users={this.state.users} renderUser={this.renderUser} />
+	}
+}
+
+export class UserList extends Component {
+	render() {
+		const { users, renderUser } = this.props
 		return (
 			<div>
 				<h1>Users</h1>
 				<ul>
-					{this.state.users.map(this.renderUser)}
-				</ul>
+					{users.map(renderUser)}
+				</ul>				
 			</div>
 		)
 	}
 }
 
+UserList.propTypes = {
+	users: PropTypes.array.isRequired,
+	renderUser: PropTypes.func.isRequired
+}
 
 export default DataFlow
-
-class User extends PureComponent {
-
-	onDeleteClick = () => {		
-		this.props.onClick(this.props.user.id)
-	}
-
-	render() {
-		const { user } = this.props
-		return (
-			<li>
-				<input
-					type="button"
-					value="Delete"
-					onClick={this.onDeleteClick}
-				/>
-				{' '}{user.id}{': '}{user.name}
-			</li>
-		)
-	}
-}
-
-User.propTypes = {
-	user: PropTypes.object.isRequired,
-	onClick: PropTypes.func.isRequired
-}
-
