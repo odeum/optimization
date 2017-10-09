@@ -11,6 +11,7 @@ import Timer from 'components/Timer'
 import DataFlow from 'components/DataFlow'
 import RenderProps from 'components/RenderProps'
 import ComponentName from 'components/ComponentName'
+import Purity from './components/Purity'
 
 // import Persist from 'components/Persist'
 
@@ -55,6 +56,8 @@ class App extends Component {
 				<RenderProps />
 
 				<ComponentName />
+
+				<Purity />
 		
 				{this.state.isLoading && <PhotosListContainer />}
 				{/* <Persist

@@ -2,7 +2,7 @@
   "name": "optimization",
   "version": "0.1.0",
   "private": true,
-  "description": "Ressources for React optimizations and examples to prove patterns",
+  "description": "Ressources for React optimizations and examples to test patterns",
   "author": "Christian Broberg",
   "license": "MIT",
   "keywords": [
