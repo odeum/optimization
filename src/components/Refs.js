@@ -4,12 +4,16 @@ import { Input } from 'components/Styles'
 
 export default class CustomTextInput extends Component {
 
-	focusTextInput = () => {
-		this.textInput.focus()
-	}
-
 	componentDidMount() {
 		this.focusTextInput()
+	}
+
+	createRef = (input) => {
+		this.textInput = input
+	}
+
+	focusTextInput = () => {
+		this.textInput.focus()
 	}
 
 	render() {
@@ -17,15 +21,13 @@ export default class CustomTextInput extends Component {
 			<div>				
 				<Input
 					type="text"
-					innerRef={input => this.textInput = input} 
+					innerRef={this.createRef} 					
 				/>
-
 				<button 
 					type="button"
 					onClick={this.focusTextInput}
 					style={{ background: '#3FFFF' }}>Focus the text input
 				</button>
-
 			</div>
 		)
 	}
