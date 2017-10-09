@@ -44,45 +44,60 @@ user = 10
 
 ### Purity
 
-#### Use pure components
+#### Use pure functions and pure components. 
+A pure function is a function whose return value is solely determined by its input values, without any dependence on global state or causing any side effects. In components, you often have complicated behavior that aids, but is not directly tied to rendering. Use pure helper functions to move this logic outside of the component, resulting in a component with fewer responsibilities and lower complexity.
+
+Pure render optimized React components can be extremely performant but it requires users to treat their data as immutable for it to work properly. The anti-pattern is creating new arrays, objects, functions or any other new identities during render or in Redux connect(mapState).
 
 Use React.PureComponent (which auto implements shouldComponentUpdate) or use shouldComponentUpdate in React.Component classes. 
 
-#### Use pure functions. 
-A pure function is a function whose return value is solely determined by its input values, without any dependence on global state or causing any side effects. In components, we often have complicated behavior that aids, but is not directly tied to our rendering. Use pure helper functions to move this logic outside of the component, resulting in a component with fewer responsibilities and lower complexity.
 
-#### Public Class Fields syntax (Experimental Stage 3 - TC39)
-You might often want to use an inline function (typically an arrow function) as a prop for controlling events or rendering. If that prop wants to control the render in a child component (commonly called **Render Props** or Render Callbacks) you will have a hard time **ensuring referential identity** which is your top priority when you want to avoid **PureComponent** or **shouldComponentUpdate** to re-render your component when your state or props aren't mutated. 
+#### Public Class Fields syntax ([Experimental Stage 2 - TC39](https://github.com/tc39/proposal-class-fields))
+You might often use an inline arrow function as a prop for controlling events or rendering. If that prop wants to control the render in a child component (commonly called **Render Props** or Render Callbacks) you will have a hard time **ensuring referential identity** which is your top priority when you want to avoid **PureComponent** or **shouldComponentUpdate** to re-render your component when your state or props aren't mutated. 
 
-The problem with inline functions, is that a new and different callback (with a different identity) is created each time the component renders. To avoid this use the **experimental public class fields syntax**.
+The potential problem and anti-pattern with inline arrow functions is that, the callback function is reallocated (with a different **referential identity**) each time the component renders. In many cases, this isn’t a big deal. But if you have child components, they will re-render even when data hasn’t mutated because each render allocates a new function.
+To avoid this use the **experimental public class fields syntax**. 
 
-Applying the **experimental public class fields syntax** (enabled by default in Create React App), you can use **class fields** to correctly bind callbacks, and at the same time ensure referential identity for your callback functions without having to declare all your methods in the constructor which is a complete mess:
+Applying the **experimental public class fields syntax** (enabled by default in Create React App), you can use **class fields** to correctly bind callbacks, and at the same time **ensure referential identity** for your callback functions without having to declare all your methods in the constructor which is a complete mess:
 
 ```js
-class MyComponent extends React.Component {  
+class ReferentialIdentity extends React.Component {  
 
-// This syntax ensures `this` is bound within handleClick.
-    handleClick = () => {
+// This class fields syntax ensures `this` is bound within handleClick.
+  handleClick = () => {
     console.log('this is:', this)
+  }
+
+  createRef = (input) => {
+    this.textInput = input
   }
 
   render() {
     return (
-// Avoiding an inline arrow function as the click handler callback ensures referential identity for handleClick.
-      <button onClick={this.handleClick}>
-        Click me
-      </button>
+    // Avoiding an inline arrow function as the click handler and the innerRef functions ensures referential identity.
+      <button onClick={this.handleClick}>Click me</button>
+      <Input type="text" innerRef={this.createRef} />
     )
   }
 }
 ```
 
 #### Render Props
-Render props are a pattern used to create a component that exists to compose and manage shared state. [(You can read more about them here.)](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce)
+**Render Props** are a pattern that goes by different names:
 
-Render Props ("render callback" or "children as a function") can be a colocated and easily readable pattern. Render props uses dynamic composition which is key to React's model for rendering views. A render prop is a function prop that a component uses to control what to render.
+- Render Props
+- Render Callback
+- Function as a Child
 
-If you want to use render props make sure you append it with the **public class fields syntax** explained earlier to **ensure referential identity**. 
+Render Props are used to create a component that exists to compose and manage shared state. [(You can read more about them here.)](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce)
+
+Main concepts:
+- The **"sender component"** passes down a prop, which has a function as its value. That function allows the two components to share data (state) in a decoupled way, allowing the passed down function to control what to render.
+- The **"receiving component"** that declares the prop type for the render prop function, can essentially expose its data (state) to the **"sender component"** by calling its render prop. Therefore the **"sender component"** can render whatever it wants with that state.
+
+Render Props can be a colocated and easily readable pattern. Render Props uses dynamic composition which is key to React's model for rendering views. Everything happens inside of render, so we can take advantage of the full React lifecycle and the natural uni-directional flow of props and state.
+
+If you want to use Render Props make sure you append it with the **public class fields syntax** explained earlier to **ensure referential identity**. 
 
 
 2. Immutable data representation (Data Comparability)
@@ -114,14 +129,17 @@ API: Render, Props, State, Context, Lifecycle Events
 [React Component Patterns by Michael Chan](https://www.youtube.com/watch?v=YaZg8wg39QQ)
 
 1. Stateful Component
+A component using state is known as stateful
 
 2. Stateless Component
+A component without state
 
 3. Container Component
+A component that manages data and. Containers are stateful and is often used for business logic and fetching data from an API. 
 
 4. Higher-order Component (HoC)
 
-5. Render Callback (Render Props)
+5. Render Props
 
 
 
