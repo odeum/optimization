@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "apisauce": "^0.14.1",
+    "immutable": "^3.8.2",
     "lodash.debounce": "^4.0.8",
     "lodash.isequal": "^4.5.0",
     "polished": "^1.7.0",

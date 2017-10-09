@@ -9,6 +9,7 @@ import CustomTextInput from 'components/Refs'
 import TextInput from 'components/TextInput'
 import Timer from 'components/Timer'
 import DataFlow from 'components/DataFlow'
+
 // import Persist from 'components/Persist'
 
 const ConnectedComponent = Connect(Greeting)
@@ -48,7 +49,7 @@ class App extends Component {
 				<WindFarmListContainer />
 
 				<DataFlow />
-
+		
 				{this.state.isLoading && <PhotosListContainer />}
 				{/* <Persist
 					name="saved-state"

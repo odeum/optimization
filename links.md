@@ -47,6 +47,7 @@
 - [React at 60fps](https://hackernoon.com/react-at-60fps-4e36b8189a4c)
 
 ## Memoize (Memoization, Reselect, ...)
+[Pure Render and Reselect](https://medium.com/@esamatti/react-js-pure-render-performance-anti-pattern-fb88c101332f)
 
 ## Containerization
 https://medium.com/@learnreact/container-components-c0e67432e005
