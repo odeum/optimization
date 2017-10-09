@@ -9,6 +9,8 @@ import CustomTextInput from 'components/Refs'
 import TextInput from 'components/TextInput'
 import Timer from 'components/Timer'
 import DataFlow from 'components/DataFlow'
+import RenderProps from 'components/RenderProps'
+import ComponentName from 'components/ComponentName'
 
 // import Persist from 'components/Persist'
 
@@ -49,6 +51,10 @@ class App extends Component {
 				<WindFarmListContainer />
 
 				<DataFlow />
+
+				<RenderProps />
+
+				<ComponentName />
 		
 				{this.state.isLoading && <PhotosListContainer />}
 				{/* <Persist
