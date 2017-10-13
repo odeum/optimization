@@ -12,6 +12,7 @@ import DataFlow from 'components/DataFlow'
 import RenderProps from 'components/RenderProps'
 import ComponentName from 'components/ComponentName'
 import Purity from './components/Purity'
+import ClickHandler from './components/ClickHandler'
 
 // import Persist from 'components/Persist'
 
@@ -59,6 +60,8 @@ class App extends Component {
 
 				<Purity />
 		
+				<ClickHandler />
+
 				{this.state.isLoading && <PhotosListContainer />}
 				{/* <Persist
 					name="saved-state"
