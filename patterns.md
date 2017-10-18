@@ -1,4 +1,4 @@
-# 1. React Optimization - Patterns & Anti-Patterns
+# React Optimization - Patterns & Anti-Patterns
 
 Quote: *"Premature optimization is the root of all evil"* 
 
@@ -64,23 +64,82 @@ Applying the **experimental public class fields syntax** (enabled by default in 
 class ReferentialIdentity extends React.Component {  
 
 // This class fields syntax ensures `this` is bound within handleClick.
-  handleClick = () => {
-    console.log('this is:', this)
-  }
+handleClick = () => {
+  console.log('this is:', this)
+}
 
-  createRef = (input) => {
-    this.textInput = input
-  }
+createRef = (input) => {
+  this.textInput = input
+}
 
-  render() {
-    return (
-    // Avoiding an inline arrow function as the click handler and the innerRef functions ensures referential identity.
-      <button onClick={this.handleClick}>Click me</button>
-      <Input type="text" innerRef={this.createRef} />
-    )
-  }
+render() {
+  return (
+// Avoiding an inline arrow function as the click handler and the innerRef functions ensures referential identity.
+    <button onClick={this.handleClick}>Click me</button>
+    <Input type="text" innerRef={this.createRef} />
+  )
 }
 ```
+
+#### Handling events with arguments and still avoiding arrow functions
+
+Creating arrow function in JSX renders is not a good pattern as mentioned earlier thus it prevents us from ensuring referential identity. 
+The normal behaviour is to do like the following code snippet:
+
+```js
+render() {
+	return(<MyComponent onChange={(e) => this.handleOnChange(e)} />)
+}
+```
+
+We can avoid this by exercising the usage of the **Public Class Fields syntax** and declare our event handler as a class method:
+
+```js
+handleClick = () => {
+	console.log('I am handling this event ...')
+}
+
+...
+
+render() {
+	return(<MyComponent onClick={this.handleClick} />)
+}
+```
+
+But this pattern turns sour when you need to pass an argument to the event handler. The normal pattern for doing this is like this:
+
+```js
+handleClick = (e, argument) => {
+  e.preventDefault()
+  console.log(argument)
+}
+
+...
+
+render() {
+  return(<MyComponent onChange={(e) => this.handleChange(e, argument)} />)
+}
+```
+
+With this we are back to using an arrow function in our React render method. 
+
+To fix this we can use a pattern where we return a function by another function:
+
+```js
+handleClick = (argument) => (e) => {
+  e.preventDefault()
+  console.log(argument)
+}
+
+...
+
+render() {
+  return(<MyComponent onClick={this.handleClick(argument)} />)
+}
+```
+
+This is the pattern to go with to **ensure referential identity**.
+
 
 #### Render Props
 **Render Props** are a pattern that goes by different names:
@@ -162,17 +221,17 @@ Use either React.PureComponent or shouldComponentUpdate where ever possible.
 **Example**:
 ```js
 render() {
-	return (
-		<div style={{width: this.props.width}}>
-			{this.state.rows}
-		</div>
-	)
+  return (
+    <div style={{width: this.props.width}}>
+	  {this.state.rows}
+	</div>
+  )
 }
 ```
 
 ```js
 shouldComponentUpdate() {
-	return false
+  return false
 }
 
 ```
@@ -186,19 +245,19 @@ The pattern is truly simple. An event like **"onClick"** should have an event ha
 
 ```js
 handleClick = () => {
-    console.log('This is easy to handle ...')
+  console.log('This is easy to handle ...')
   }
 
 handleMouseEnter = () => {
-    console.log('You entered the mouse on the hotspot!')
+  console.log('You entered the mouse on the hotspot!')
   }
 
 ...
 
 <input 
-    type="button" 
-    value="Delete" 
-    onClick={this.handleClick} 
+  type="button" 
+  value="Delete" 
+  onClick={this.handleClick} 
 />
 
 ...
@@ -208,4 +267,9 @@ handleMouseEnter = () => {
 
 ## Check your JSON
 - [jsonlint](https://jsonlint.com/)
+
+## Event Handler Arguments:
+https://stackoverflow.com/questions/43186777/hand-over-function-to-onclick-on-props-with-parameters
+https://stackoverflow.com/questions/42608209/pass-event-args-and-event-object-to-event-handler-without-arrow-function-in-reac
+https://reactjs.org/docs/handling-events.html#passing-arguments-to-event-handlers
 
