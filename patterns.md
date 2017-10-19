@@ -88,7 +88,7 @@ The normal behaviour is to do like the following code snippet:
 
 ```js
 render() {
-	return(<MyComponent onChange={(e) => this.handleOnChange(e)} />)
+  return(<MyComponent onChange={(e) => this.handleOnChange(e)} />)
 }
 ```
 
@@ -96,13 +96,13 @@ We can avoid this by exercising the usage of the **Public Class Fields syntax** 
 
 ```js
 handleClick = () => {
-	console.log('I am handling this event ...')
+  console.log('I am handling this event ...')
 }
 
 ...
 
 render() {
-	return(<MyComponent onClick={this.handleClick} />)
+  return(<MyComponent onClick={this.handleClick} />)
 }
 ```
 
@@ -173,7 +173,7 @@ If you want to use Render Props make sure you append it with the **public class 
 
 5. Keep <li> in their own component
 
-6. Implement ID's in your models and then use ID's for keys in iterations, only use indexes if an ID isn't a part of your data structure
+6. Implement ID's in your models and then use ID's for keys in iterations, only use auto generated indexes (from array.map etc.) if an ID isn't a part of your data model
 
 
 ## API for React Components
