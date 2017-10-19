@@ -4,47 +4,192 @@ Quote: *"Premature optimization is the root of all evil"*
 
 Translation: *"Don't worry about performance until you have a problem"*
 
+This guide is mainly written for personal purposes, and as tutorial starter-kit for new collegues and interns working with [ODEUM Code](http://odeumcode.com). 
+Main goals are:
+- A quick guide to the most common best practices and patterns when working with React
+- Patterns for optimizing React
+- What to do and what not to do
+- Personal React coding patterns - tips & tricks
 
-[React Patterns](http://reactpatterns.com/)
+## Contents:
+This is what's on the menu folks:
+
+- [Basic React Patterns](#basic-react-patterns)
+	- [Unidirectional Dataflow](#unidirectional-dataflow)
+	- [Stateless function](#stateless-function)
+	- [Conditional rendering with ternary operator](#conditional-rendering-with-ternary-operator)
+	- [Conditional rendering without ternary operator](#conditional-rendering-without-ternary-operator)
+	- [JSX spread attributes]
+	- [Destructuring arguments]
+	- [Children types]
+	- [Array as children]
+	- [Function as children]
+	- [Children pass-through]
+	- [Proxy component]
+	- [Style component]
+	- [Event switch]
+	- [Layout component]
+- [API for React Components](#api-for-react-components)
+- [Component types in React](#component-types-in-react)
+	- [Stateless Component](#stateless-component)
+	- [Stateful Component](#stateful-component)
+	- [Container component](#container-component)
+	- [Render Props](#render-props)
+	- [Higher-order component](#higher-order-component)
+
+- [State hoisting]
+- [Controlled input]
+- [Portals] - https://reactjs.org/docs/portals.html 
+
 
 ## Basic React Patterns:
 
-#### Dataflow - uni-directional
+### Unidirectional Dataflow
+##### [:: Contents](#contents)
 
-- Data flows **down** from parent to child components
-This is the pattern of passing information (state and props) down (as objects, strings, etc.) and passing functionality down to allow child components to pass information back up. Like sending down a box of food (data) and a walkie talkie (callback function) to people trapped underground.
+In React data flows in one direction - uni-directional. 
+Data flows **down** from parent to child components
+This is the pattern of passing information (state and props) down (as objects, strings, etc.) and passing functionality down to allow child components to pass information back up. Like sending down a **box of food (data)** and a **walkie talkie** (handler / callback function) to people trapped underground.
 
-A good pattern is to use a callback function prop to notify the parent that something has happened - the parent can then mutate the data (state) it owns and pass it back into the child through props. Never let the child mutate the props (they are read-only and immutable) they should be kept immutable even though diverting from this immutable pattern is technically achievable.
+- A parent **never** asks its child for its state
+- A child can **only** update parent state by executing a callback function that it was given by its parents.
+- A child can **never** mutate props passed down to it
 
-Example: 
+The best practices pattern is for the child to use a callback function prop to notify the parent that something has happened - the parent can then mutate its own data (state) and pass it back into the child through props. Never let the child mutate the props (they are read-only and immutable) they should be kept immutable even though diverting from this immutable pattern is technically achievable.
 
-You would often do something like this in a component, right before the render.
-```js
-const { user } = this.props
-user = 10 // will fail
-```
-You can not reassign a **const**, but if you change the const to a **let** or a **var**, then you have achieved to change the immutability of the prop. So don't do this:
-```js
-let { user } = this.props
-user = 10
-```
 
 **[Example dataflow](/src/components/DataFlow.js)**
 
+Best practices for data flows are hence:
 
-#### A parent **never** asks its child for its state
+- From parent to child: via props
+- From child to parent: via handlers (callback function)
 
-#### A child can **only** update parent state by executing a callback function that it was given by its parents.
+```js
+// The child is passed down data and a handler:
+<Child data={food} onEvent={this.handleEvent}>
+```
+```js
+// The parent has:
+class Parent extends React.Component {  
+  handleEvent = (dataFromChild) => {
+  }
+}
+```
 
-#### A child can **never** mutate props passed down to it
+### Stateless function
+##### [:: Contents](#contents)
 
-2. 
+**Stateless functions** are as the name suggests ... stateless. They don't hold "state", they are simply JavaScript functions.
+
+In React, a stateless function is usually a **Stateless Component** which is described elsewhere in this document. 
+
+Through this terminology we could also call the declaration **React Stateless Functional Components**.
+
+#### Examples
+
+```js
+// Definition of a stateless function using the function keyword
+function Welcome(props) {
+  return (
+	<h1>Welcome, {props.name}</h1>
+  )
+}
+
+// Definition of a stateless arrow function 
+const WarmWelcome = (props) => {
+  return <h1>Warm welcome, {props.name}</h1>
+}
+
+// Arrow functions can ommit the parens when only on argument is passed, and ommit return statement when only one expression is returned
+const HotWelcome = props => <h1>Hot welcome, {props.name}</h1>
+
+// Arrow function without props and the simplest stateless component you can create
+const Greeting = () => <div>Hi there!</div>
+
+// Destructuring passed props
+const HotGreeting = ({ name, age }) => <div>Hi there {name} you</div>
+```
+
+### Conditional rendering with ternary operator
+##### [:: Contents](#contents)
+
+You might want to render a part of your UI if a specific condition is met. For conditional rendering, **we can't use regular if/else conditions inside a JSX** component definition. 
+We have to use the **Conditional (ternary) Operator** with logical operators, &&, || and !.
+
+#### if (example 1)
+The list item block is rendered if condition === true.
+
+```js
+{condition && (
+  <li>Rendered when condition = true</li> 
+  <li>Rendered when condition = true</li> 
+  <li>Rendered when condition = true</li> 
+  <li>Rendered when condition = true</li> 
+)
+}
+```
+
+#### if (example 2)
+We store the value of the checkbox in state (isChecked: true/false) and the **ternary operator** renders the Button component if the condition is true (if isChecked === true).
+
+```js
+<Checkbox checked={isChecked} onChange={this.handleChange} />
+
+{isChecked && <Button label={'Rendered when isChecked = true'} /> }
+```
+
+#### unless
+The Text component is rendered if cindition === false.
+
+```js
+{condition || <Text>Rendered when condition = false</Text> }
+```
+
+#### if - else
+
+```js
+{condition ? <Text>Rendered when true</Text> : <Text>Rendered when false</Text> }
+```
+#### if-else (blocks)
+
+```js
+{condition ? (
+  <div>
+    Rendered when true
+  </div>
+) : (
+  <div>
+    Rendered when false
+  </div>
+)}
+```
+
+### Conditional rendering without ternary operator
+##### [:: Contents](#contents)
+
+As mentioned earlier we can not use if/else statements in component definitions for conditional rendering. 
+If you dislike using the ternary operator you have to lift the conditional expression up to a higher level. 
+
+You can do this with a **stateless function component** like this example:
+
+```js
+const conditionalRendering = (shouldRender) => {
+  if (shouldRender) {
+    return (
+	  <div></div>
+	)
+  }
+}
+```
 
 ## Basis concepts for optimization:
 
 ### Purity
 
-#### Use pure functions and pure components. 
+### Use pure functions and pure components. 
+##### [:: Contents](#contents)
+
 A pure function is a function whose return value is solely determined by its input values, without any dependence on global state or causing any side effects. In components, you often have complicated behavior that aids, but is not directly tied to rendering. Use pure helper functions to move this logic outside of the component, resulting in a component with fewer responsibilities and lower complexity.
 
 Pure render optimized React components can be extremely performant but it requires users to treat their data as immutable for it to work properly. The anti-pattern is creating new arrays, objects, functions or any other new identities during render or in Redux connect(mapState).
@@ -52,7 +197,9 @@ Pure render optimized React components can be extremely performant but it requir
 Use React.PureComponent (which auto implements shouldComponentUpdate) or use shouldComponentUpdate in React.Component classes. 
 
 
-#### Public Class Fields syntax ([Experimental Stage 2 - TC39](https://github.com/tc39/proposal-class-fields))
+### Public Class Fields syntax ([Experimental Stage 2 - TC39](https://github.com/tc39/proposal-class-fields))
+##### [:: Contents](#contents)
+
 You might often use an inline arrow function as a prop for controlling events or rendering. If that prop wants to control the render in a child component (commonly called **Render Props** or Render Callbacks) you will have a hard time **ensuring referential identity** which is your top priority when you want to avoid **PureComponent** or **shouldComponentUpdate** to re-render your component when your state or props aren't mutated. 
 
 The potential problem and anti-pattern with inline arrow functions is that, the callback function is reallocated (with a different **referential identity**) each time the component renders. In many cases, this isn’t a big deal. But if you have child components, they will re-render even when data hasn’t mutated because each render allocates a new function.
@@ -81,9 +228,11 @@ render() {
 }
 ```
 
-#### Handling events with arguments and still avoiding arrow functions
+### Handling events with arguments in React and avoiding arrow functions
+##### [:: Contents](#contents)
 
 Creating arrow function in JSX renders is not a good pattern as mentioned earlier thus it prevents us from ensuring referential identity. 
+
 The normal behaviour is to do like the following code snippet:
 
 ```js
@@ -141,7 +290,77 @@ render() {
 This is the pattern to go with to **ensure referential identity**.
 
 
-#### Render Props
+## Immutable data representation (Data Comparability)
+##### [:: Contents](#contents)
+
+- Use highly comparable data (Immutability)
+- Truly Functional programming means you never attempt to mutate state, so it doesn’t matter if the state is technically mutable.
+
+#### Example of unwanted mutation: 
+
+You would often do something like this in a component, right before the render through destructuring.
+```js
+const { user } = this.props
+user = 10 // will fail
+```
+You can not and should not reassign a **const**, but if you change the const to a **let** or a **var**, then you have achieved to change the immutability of the prop. So **DON'T DO THIS:**
+```js
+let { user } = this.props
+user = 10
+```
+
+3. Loose Coupling
+- Use for both maintainability and performance
+
+4. Children
+- Children are expensive
+- Children should excercise independance
+- Child Components should be "pure"
+
+5. Keep <li> in their own component
+
+6. Implement ID's in your models and then use ID's for keys in iterations, only use auto generated indexes (from array.map etc.) if an ID isn't a part of your data model
+
+## API for React Components
+##### [:: Contents](#contents)
+
+API: Render, Props, State, Context, Lifecycle Events
+
+- Container (Stateful Component - Controller, Smart, Business Logic, Data (fetching)) - uses render, state, lifecycle events
+
+- Presentation (Stateless Component - View, Dumb, Display) - uses render, props, context
+
+
+## Component types in React 
+##### [:: Contents](#contents)
+
+[React Component Patterns by Michael Chan](https://www.youtube.com/watch?v=YaZg8wg39QQ)
+
+## Stateless Component
+##### [:: Contents](#contents)
+
+A component without state
+A stateless component can be declared as both a function and a class.
+As the React team states, *"The simplest way to define a component is to write a JavaScript function:"*
+
+## Stateful Component
+##### [:: Contents](#contents)
+
+A component using state is known as stateful
+
+## Container Component
+##### [:: Contents](#contents)
+
+A component that manages data and. Containers are stateful and is often used for business logic and fetching data from an API. 
+
+## Higher-order Component
+##### [:: Contents](#contents)
+
+HoC ... 
+
+## Render Props
+##### [:: Contents](#contents)
+
 **Render Props** are a pattern that goes by different names:
 
 - Render Props
@@ -158,55 +377,15 @@ Render Props can be a colocated and easily readable pattern. Render Props uses d
 
 If you want to use Render Props make sure you append it with the **public class fields syntax** explained earlier to **ensure referential identity**. 
 
-
-2. Immutable data representation (Data Comparability)
-- Use highly comparable data (Immutability)
-- Truly Functional programming means you never attempt to mutate state, so it doesn’t matter if the state is technically mutable.
-
-3. Loose Coupling
-- Use for both maintainability and performance
-
-4. Children
-- Children are expensive
-- Children should excercise independance
-- Child Components should be "pure"
-
-5. Keep <li> in their own component
-
-6. Implement ID's in your models and then use ID's for keys in iterations, only use auto generated indexes (from array.map etc.) if an ID isn't a part of your data model
-
-
-## API for React Components
-API: Render, Props, State, Context, Lifecycle Events
-
-- Container (Stateful Component - Controller, Smart, Business Logic, Data (fetching)) - uses render, state, lifecycle events
-
-- Presentation (Stateless Component - View, Dumb, Display) - uses render, props, context
-
-
-## Different React Components (Michael Chan)
-[React Component Patterns by Michael Chan](https://www.youtube.com/watch?v=YaZg8wg39QQ)
-
-1. Stateful Component
-A component using state is known as stateful
-
-2. Stateless Component
-A component without state
-
-3. Container Component
-A component that manages data and. Containers are stateful and is often used for business logic and fetching data from an API. 
-
-4. Higher-order Component (HoC)
-
-5. Render Props
-
-
-
 ## Separation of concerns
+##### [:: Contents](#contents)
+
 The idea is pretty simple: components can't be concerned with both presentation and data-fetching. 
 [](https://gist.github.com/chantastic/fc9e3853464dffdb1e3c)
 
-## Containerization 
+## Containerization
+##### [:: Contents](#contents)
+
 https://medium.com/@learnreact/container-components-c0e67432e005
 
 Use containers to manage data and try to avoid children as much as possible. 
@@ -237,6 +416,8 @@ shouldComponentUpdate() {
 ```
 
 ## Event handler naming conventions
+##### [:: Contents](#contents)
+
 You would often be inclined to name your event handlers after what kind of action the event do, in below example the button click could delete a user or close a modal. It seems even seductive to name the handler callback **"handleDeleteUser"** or **"onDeleteUser"**. When you pass a lot of functions as props in React components, you can quickly loose oversight and create errors when you name your event handlers all kinds of different action based names. 
 
 This has nothing to do with React optimization, but a naming pattern that is commonly used. It is easy to remember and when you get used to it, your code gets easier to read when you consult it later.

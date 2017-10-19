@@ -49,3 +49,4 @@ class Rerender extends Component {
 }
 
 export default Rerender
+

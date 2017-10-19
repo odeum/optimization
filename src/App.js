@@ -14,6 +14,7 @@ import ComponentName from 'components/ComponentName'
 import Purity from './components/Purity'
 import ClickHandler from './components/ClickHandler'
 import Rerender from './components/Rerender'
+import ProductList, { PRODUCTS } from './components/ProductList'
 
 // import Persist from 'components/Persist'
 
@@ -64,6 +65,8 @@ class App extends Component {
 				<ClickHandler />
 
 				<Rerender />
+
+				<ProductList products={PRODUCTS} />
 
 				{this.state.isLoading && <PhotosListContainer />}
 				{/* <Persist
