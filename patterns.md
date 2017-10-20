@@ -1,4 +1,4 @@
-# React Optimization - Patterns & Anti-Patterns
+# React optimization - Patterns & Anti-Patterns
 
 Quote: *"Premature optimization is the root of all evil"* 
 
@@ -17,9 +17,9 @@ This is what's on the menu folks:
 - [Basic React Patterns](#basic-react-patterns)
 	- [Unidirectional Dataflow](#unidirectional-dataflow)
 	- [Stateless function](#stateless-function)
+	- [JSX spread attributes](#jsx-spread)
 	- [Conditional rendering with ternary operator](#conditional-rendering-with-ternary-operator)
 	- [Conditional rendering without ternary operator](#conditional-rendering-without-ternary-operator)
-	- [JSX spread attributes]
 	- [Destructuring arguments]
 	- [Children types]
 	- [Array as children]
@@ -80,13 +80,13 @@ class Parent extends React.Component {
 ### Stateless function
 ##### [:: Contents](#contents)
 
-**Stateless functions** are as the name suggests ... stateless. They don't hold "state", they are simply JavaScript functions.
+**Stateless functions** are as the name suggests ... stateless. They don't hold "state", they are simply JavaScript functions. A simple way to define highly reusable **presentational components**.
 
 In React, a stateless function is usually a **Stateless Component** which is described elsewhere in this document. 
 
 Through this terminology we could also call the declaration **React Stateless Functional Components**.
 
-#### Examples
+#### Definition examples
 
 ```js
 // Definition of a stateless function using the function keyword
@@ -107,8 +107,94 @@ const HotWelcome = props => <h1>Hot welcome, {props.name}</h1>
 // Arrow function without props and the simplest stateless component you can create
 const Greeting = () => <div>Hi there!</div>
 
-// Destructuring passed props
-const HotGreeting = ({ name, age }) => <div>Hi there {name} you</div>
+// Destructuring of passed props
+const HotGreeting = ({ name, age }) => <div>Hi there {name} you {age < 30 ? ' youngster' : ' oldie' }</div>
+...
+// And the execution
+<HotGreeting name={'Christian'} age={49} />
+```
+
+#### Facilities and usage
+Stateless functions get **"props"** passed as arguments.
+
+```js
+const Greeting = (props) =>
+  <Text>Greetings {props.name}! Happy to see you {props.hasVisited ? ' again' : ' for the first time'}</Text>
+```
+
+Stateless functions can define local scoped variables, when a function block is used.
+
+```js
+const Greeting = (props) => {
+  const style = {
+    fontSize: props.fontSize,
+    color: props.color,
+  }
+
+  return <div style={style}>{props.name}</div>
+}
+```
+
+You can get the same result by using a helper functions.
+
+```js
+// Helper function defining and returning a partial style object
+const getStyle = props => ({
+  fontSize: '28px',
+  color: props.color,
+})
+
+const Greeting = (props) =>
+  <div style={getStyle(props)}>Hello {props.name}</div>
+...
+<Greeting name='Christian' color='magenta'/>
+```
+
+Stateless functions can define its own **"propTypes"** and **"defaultProps"** which is always a good pattern to describe its interface and types.
+
+```js
+Greeting.propTypes = {
+  name: PropTypes.string.isRequired,
+  size: PropTypes.string,
+  color: PropTypes.string
+}
+Greeting.defaultProps = {
+  name: 'Homie',
+  color: 'palevioletred'
+}
+```
+
+## JSX spread attributes
+##### [:: Contents](#contents)
+
+**JSX spread attributes** is a feature for passing all of an object's properties (props) as JSX attributes.
+
+The following two components are equivalent:
+```js
+// Props written as attributes
+const App1 = () => {
+  return <Greeting firstName="Luke" lastName="Skywalker" />
+}
+
+// Props "spread" from object with the spread operator "...props"
+const App2 = () => {
+  const props = {firstName: 'Luke', lastName: 'Skywalker'}
+  return <Greeting {...props} />
+}
+```
+
+Using the spread operator to forward `props` to underlying components.
+```js
+const HotGreeting = props =>
+  <Greeting {...props} />
+```
+
+Now, I can expect `FancyDiv` to add the attributes it's concerned with as well as those it's not.
+
+```js
+<FancyDiv data-id="my-fancy-div">So Fancy</FancyDiv>
+
+// output: <div className="fancy" data-id="my-fancy-div">So Fancy</div>
 ```
 
 ### Conditional rendering with ternary operator

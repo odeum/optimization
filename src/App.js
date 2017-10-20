@@ -13,7 +13,7 @@ import RenderProps from 'components/RenderProps'
 import ComponentName from 'components/ComponentName'
 import Purity from './components/Purity'
 import ClickHandler from './components/ClickHandler'
-import Rerender from './components/Rerender'
+import Rerender, { HotGreeting, StyledGreeting } from './components/Rerender'
 import ProductList, { PRODUCTS } from './components/ProductList'
 
 // import Persist from 'components/Persist'
@@ -67,6 +67,10 @@ class App extends Component {
 				<Rerender />
 
 				<ProductList products={PRODUCTS} />
+
+				<HotGreeting name={'Christian'} age={49} />
+
+				<StyledGreeting name={'Christian'} color={'palevioletred'}/>
 
 				{this.state.isLoading && <PhotosListContainer />}
 				{/* <Persist

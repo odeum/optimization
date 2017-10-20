@@ -50,3 +50,20 @@ class Rerender extends Component {
 
 export default Rerender
 
+export const HotGreeting = ({ name, age }) => <div>Hi there {name} you {age < 30 ? ' youngster' : ' oldie' }</div>
+
+// Function defining and returning a style object
+const getStyle = props => ({
+	fontSize: '28px',
+	color: props.color,
+})
+
+export const StyledGreeting = (props) =>
+	<div style={getStyle(props)}>{props.name}</div>
+
+
+const Greeting = ({ name, age }) => <div>Hi there {name} you {age < 30 ? ' youngster' : ' oldie'}</div>
+
+export const FancyGreeting = props =>
+	<Greeting {...props} />
+
