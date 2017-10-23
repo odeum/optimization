@@ -17,10 +17,10 @@ This is what's on the menu folks:
 - [Basic React Patterns](#basic-react-patterns)
 	- [Unidirectional Dataflow](#unidirectional-dataflow)
 	- [Stateless function](#stateless-function)
-	- [JSX spread attributes](#jsx-spread)
+	- [JSX spread attributes](#jsx-spread-attributes)
 	- [Conditional rendering with ternary operator](#conditional-rendering-with-ternary-operator)
 	- [Conditional rendering without ternary operator](#conditional-rendering-without-ternary-operator)
-	- [Destructuring arguments]
+	- [Destructuring arguments](#destructuring-arguments)
 	- [Children types]
 	- [Array as children]
 	- [Function as children]
@@ -183,18 +183,10 @@ const App2 = () => {
 }
 ```
 
-Using the spread operator to forward `props` to underlying components.
+Using the spread operator to forward passed down props to underlying components.
 ```js
 const HotGreeting = props =>
   <Greeting {...props} />
-```
-
-Now, I can expect `FancyDiv` to add the attributes it's concerned with as well as those it's not.
-
-```js
-<FancyDiv data-id="my-fancy-div">So Fancy</FancyDiv>
-
-// output: <div className="fancy" data-id="my-fancy-div">So Fancy</div>
 ```
 
 ### Conditional rendering with ternary operator
@@ -268,6 +260,10 @@ const conditionalRendering = (shouldRender) => {
   }
 }
 ```
+
+## Destructuring arguments
+##### [:: Contents](#contents)
+...
 
 ## Basis concepts for optimization:
 
