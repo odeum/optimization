@@ -1,4 +1,21 @@
-# NPM => YARN Cheat Sheet
+## YARN
+
+#### yarn add <package...>
+This will install one or more packages in your dependencies.
+
+#### yarn add <package...> [--dev/-D]
+Using --dev or -D will install one or more packages in your devDependencies.
+
+#### yarn add <package...> [--peer/-P]
+Using --peer or -P will install one or more packages in your peerDependencies.
+
+#### yarn add <package...> [--optional/-O]
+Using --optional or -O will install one or more packages in your optionalDependencies.
+
+#### yarn add <package...> [--exact/-E]
+Using --exact or -E installs the packages as exact versions. The default is to use the most recent release with the same major version. For example, yarn add foo@1.2.3 would accept version 1.9.1, but yarn add foo@1.2.3 --exact would only accept version 1.2.3.
+
+## NPM => YARN Cheat Sheet
 
 #### yarn = npm install 
 Install is the default behavior for yarn
