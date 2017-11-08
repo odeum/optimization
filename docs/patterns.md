@@ -1,18 +1,24 @@
-# React optimization - Patterns & Anti-Patterns
+# React Patterns & Anti-Patterns
+
+This guide is mainly written for personal learning purposes, and as a simple tutorial or quick-guide for other junior developers working with React. This guide will be updated frequently with new best-practices and explorations of new "hipster" React patterns.
+
+My company [WebHouse](http://www.webhouse.dk) is working on a lightweight React framework aimed at making design and development of Web Apps faster and easier and more reusable ... from our point of view. New collegues and interns working with [ODEUM Code](http://odeumcode.com) at WebHouse are also targeted with this guide. 
+
+Main goals are:
+- A quick guide to the most common best practices and patterns when working with React
+- Patterns for optimizing React
+- What to do and what not to do
+- Personal React coding patterns 
+- Tips & tricks
 
 Quote: *"Premature optimization is the root of all evil"* 
 
 Translation: *"Don't worry about performance until you have a problem"*
 
-This guide is mainly written for personal purposes, and as tutorial starter-kit for new collegues and interns working with [ODEUM Code](http://odeumcode.com). 
-Main goals are:
-- A quick guide to the most common best practices and patterns when working with React
-- Patterns for optimizing React
-- What to do and what not to do
-- Personal React coding patterns - tips & tricks
+With these true words in mind I will try not to overemphasize my need to optimize, perfectionate, structure, minify, clearify, design and architect the way I work and the way I prefer others to work. All is written and "architected" with true passion for well functioning and beautiful React code. 
 
 ## Contents:
-This is what's on the menu folks:
+This is what's on the menu:
 
 - [Basic React Patterns](#basic-react-patterns)
 	- [Unidirectional Dataflow](#unidirectional-dataflow)
@@ -20,6 +26,7 @@ This is what's on the menu folks:
 	- [JSX spread attributes](#jsx-spread-attributes)
 	- [Conditional rendering with ternary operator](#conditional-rendering-with-ternary-operator)
 	- [Conditional rendering without ternary operator](#conditional-rendering-without-ternary-operator)
+	- [Using state to manage conditional rendering](#using-state-to-manage-conditional-rendering)
 	- [Destructuring arguments](#destructuring-arguments)
 	- [Children types]
 	- [Array as children]
@@ -246,20 +253,25 @@ The Text component is rendered if cindition === false.
 ### Conditional rendering without ternary operator
 ##### [:: Contents](#contents)
 
-As mentioned earlier we can not use if/else statements in component definitions for conditional rendering. 
-If you dislike using the ternary operator you have to lift the conditional expression up to a higher level. 
+As mentioned earlier we can not use if/else statements in JSX component definitions for conditional rendering. 
+If you dislike using the ternary operator you have to lift the conditional expression up to a higher level, and either decompose your problem further and/or use state or props to manage conditional rendering.   
 
-You can do this with a **stateless function component** like this example:
+You can use props for conditional rendering and create a **stateless function component** like this:
 
 ```js
 const conditionalRendering = (shouldRender) => {
   if (shouldRender) {
     return (
-	  <div></div>
+	  <div>
+	  	<p>This is rendered</p>
+	  </div>
 	)
   }
 }
 ```
+
+### Using state to manage conditional rendering
+
 
 ## Destructuring arguments
 ##### [:: Contents](#contents)
@@ -367,6 +379,16 @@ handleClick = (argument) => (e) => {
 render() {
   return(<MyComponent onClick={this.handleClick(argument)} />)
 }
+```
+
+And yet another brilliant example for passing arguments to an event handler:
+```js
+// Now without preventDefault which is already included in copyToClipboard
+  handleClick = (message) => {
+    return (e) => {
+  	  copyToClipboard(e, message, true)
+	}
+  }
 ```
 
 This is the pattern to go with to **ensure referential identity**.
