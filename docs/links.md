@@ -1,6 +1,6 @@
 # Links to ressources for React Optimization, Patterns and Anti-Patterns
 
-## All ressources & links 
+## All ressources & links
 
 - [React is slow - React is fast](https://marmelab.com/blog/2017/02/06/react-is-slow-react-is-fast.html)
 

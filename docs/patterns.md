@@ -1,6 +1,6 @@
 # React Patterns & Anti-Patterns
 
-This guide is mainly written for personal learning purposes, and as a simple tutorial or quick-guide for other junior developers working with React. This guide will be updated frequently with new best-practices and explorations of new "hipster" React patterns. 
+This guide is mainly written for personal learning purposes, and as a simple tutorial or quick-guide for other junior developers working with React. This guide will be updated frequently with new best-practices and explorations of new "hipster" React patterns.
 
 My company [WebHouse](http://www.webhouse.dk) is working on a lightweight React framework aimed at making design and development of Web Apps faster and easier and more reusable ... from our point of view. New collegues and interns working with [ODEUM Code](http://odeumcode.com) at WebHouse are also targeted with this guide. 
 
