@@ -9,7 +9,7 @@ Main goals are:
 - Patterns for optimizing React
 - What to do and what not to do
 - Personal React coding patterns 
-- Tips & tricks
+- Tips & tricks 
 
 Quote: *"Premature optimization is the root of all evil"* 
 
