@@ -18,7 +18,7 @@
 * [State hoisting](#state-hoisting)
 * [Controlled input](#controlled-input)
 
-## Stateless function
+## Stateless function 
 
 [Stateless functions](https://facebook.github.io/react/docs/components-and-props.html) are a brilliant way to define highly reusable components. They don't hold `state`; they're just functions.
 
