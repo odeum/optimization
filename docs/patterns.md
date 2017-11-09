@@ -1,6 +1,6 @@
 # React Patterns & Anti-Patterns
 
-This guide is mainly written for personal learning purposes, and as a simple tutorial or quick-guide for other junior developers working with React. This guide will be updated frequently with new best-practices and explorations of new "hipster" React patterns.
+This guide is mainly written for personal learning purposes, and as a simple tutorial or quick-guide for other junior developers working with React. This guide will be updated frequently with new best-practices and explorations of new "hipster" React patterns. 
 
 My company [WebHouse](http://www.webhouse.dk) is working on a lightweight React framework aimed at making design and development of Web Apps faster and easier and more reusable ... from our point of view. New collegues and interns working with [ODEUM Code](http://odeumcode.com) at WebHouse are also targeted with this guide. 
 
@@ -335,7 +335,7 @@ render() {
 }
 ```
 
-We can avoid this by exercising the usage of the **Public Class Fields syntax** and declare our event handler as a class method:
+We can avoid this by exercising the usage of the **Public Class Fields syntax** and declare our event handler as a **class method**:
 
 ```js
 handleClick = () => {
@@ -349,33 +349,35 @@ render() {
 }
 ```
 
-But this pattern turns sour when you need to pass an argument to the event handler. The normal pattern for doing this is like this:
+But the above pattern turns sour when you need to pass an argument to the event handler. The normal pattern for doing so is like this:
 
 ```js
+// Click handler with argument
 handleClick = (e, argument) => {
   e.preventDefault()
   console.log(argument)
 }
 
 ...
-
+// Arrow function needed to pass the event and the argument
 render() {
   return(<MyComponent onChange={(e) => this.handleChange(e, argument)} />)
 }
 ```
 
-With this we are back to using an arrow function in our React render method. 
+With the above we are back to square one using an arrow function in our React render method. 
 
 To fix this we can use a pattern where we return a function by another function:
 
 ```js
+// Click handler with an argument which returns a function by a function
 handleClick = (argument) => (e) => {
   e.preventDefault()
   console.log(argument)
 }
 
 ...
-
+// Arrow function is now omitted 
 render() {
   return(<MyComponent onClick={this.handleClick(argument)} />)
 }
