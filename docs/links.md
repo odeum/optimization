@@ -2,6 +2,14 @@
 
 ## All ressources & links
 
+- [Presentational and Container Components - Dan Abramov](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
+
+- [React Stateless Functional Components: Nine Wins You Might Have Overlooked](https://hackernoon.com/react-stateless-functional-components-nine-wins-you-might-have-overlooked-997b0d933dbc)
+
+- [Container Components](https://medium.com/@learnreact/container-components-c0e67432e005)
+
+- [React Pattern: Centralized PropTypes](https://medium.freecodecamp.org/react-pattern-centralized-proptypes-f981ff672f3b)
+
 - [React is slow - React is fast](https://marmelab.com/blog/2017/02/06/react-is-slow-react-is-fast.html)
 
 - [A Guide to Optimizing React Performance](https://www.toptal.com/react/optimizing-react-performance)
