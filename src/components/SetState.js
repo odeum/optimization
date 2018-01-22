@@ -1,5 +1,13 @@
 import React, { Component } from 'react'
 
+const Frapper = (props) => {
+	return (
+		<React.Fragment>
+			{props.children}
+		</React.Fragment>
+	)
+}
+
 class SettingState extends Component {
 	constructor(props) {
 		super(props)
@@ -35,12 +43,17 @@ class SettingState extends Component {
 
 	render() {
 		return (
-			<div>
-				<button onClick={this.setState1}>setState 1 - {this.state.counter}</button>
-				<button onClick={this.setState2}>setState 2 - {this.state.counter}</button>
-				<button onClick={this.setState3}>setState 3 - {this.state.counter}</button>
-				<button onClick={this.setState4}>setState 4 - {this.state.counter}</button>
-			</div>
+			<Frapper>
+				<div>
+					<button onClick={this.setState1}>setState 1 - {this.state.counter}</button>
+					<button onClick={this.setState2}>setState 2 - {this.state.counter}</button>
+					<button onClick={this.setState3}>setState 3 - {this.state.counter}</button>
+					<button onClick={this.setState4}>setState 4 - {this.state.counter}</button>
+				</div>
+				<div>
+					Hello World ... 
+				</div>
+			</Frapper>
 		)
 	}
 }
